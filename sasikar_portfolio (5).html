@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sasikar Ventrapragada</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Newsreader:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --sans:'Syne',sans-serif;
+  --serif:'Newsreader','Georgia',serif;
+  --mono:'IBM Plex Mono','Menlo',monospace;
+  --bg:#ffffff;
+  --ink:#0a0a0a;
+  --ink-mid:#404040;
+  --ink-soft:#909090;
+  --ink-faint:#c8c8c8;
+  --surface:#f6f6f6;
+}
+
+html{font-size:16px;background:var(--bg);color:var(--ink);scroll-behavior:smooth;}
+body{font-family:var(--serif);margin:0;padding:0;overflow-x:hidden;}
+.container{max-width:800px;margin:0 auto;padding:0 2.5rem;}
+
+/* ── KEYFRAMES ── */
+@keyframes reveal{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes letterDrop{
+  0%{opacity:0;transform:translateY(-40px) rotate(-4deg);}
+  60%{transform:translateY(4px) rotate(0.5deg);}
+  100%{opacity:1;transform:translateY(0) rotate(0);}
+}
+@keyframes cursorBlink{0%,100%{opacity:1}50%{opacity:0}}
+@keyframes lineGrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+/* ── HERO ── */
+.hero{
+  min-height:88vh;display:flex;flex-direction:column;
+  justify-content:flex-end;padding-bottom:4.5rem;position:relative;
+}
+.hero::after{
+  content:'';position:absolute;bottom:0;left:2.5rem;right:2.5rem;
+  height:1px;background:var(--ink-faint);
+  transform:scaleX(0);transform-origin:left;
+  animation:lineGrow 0.9s cubic-bezier(.77,0,.18,1) 1.4s both;
+}
+
+.hero-overline{
+  font-family:var(--mono);font-size:0.68rem;letter-spacing:0.18em;
+  text-transform:uppercase;color:var(--ink-soft);margin-bottom:1.4rem;
+  animation:reveal 0.6s ease-out 0.15s both;
+}
+
+/* ── ANIMATED NAME ── */
+.hero-name{
+  font-family:var(--sans);font-size:clamp(1.8rem,5.5vw,4.8rem);
+  font-weight:800;letter-spacing:-0.04em;line-height:0.92;
+  color:var(--ink);margin-bottom:1.1rem;
+  display:block;
+}
+.hero-name .word{white-space:nowrap;}
+.hero-name .word{display:block;overflow:visible;}
+.hero-name .letter{
+  display:inline-block;
+  opacity:0;
+  animation:letterDrop 0.5s cubic-bezier(.22,.68,0,1.2) both;
+}
+.hero-name .space{display:inline-block;width:0.3em;}
+
+/* cursor after name */
+.name-cursor{
+  display:inline-block;width:3px;height:0.82em;
+  background:var(--ink);vertical-align:middle;margin-left:4px;
+  animation:cursorBlink 1s step-end 2s 4, fadeIn 0s 6s both;
+  opacity:0;
+}
+@keyframes fadeIn{to{opacity:0;}}
+
+.hero-role{
+  font-family:var(--serif);font-size:1.12rem;font-weight:400;font-style:italic;
+  color:var(--ink-mid);max-width:500px;line-height:1.65;margin-bottom:1.8rem;
+  animation:reveal 0.7s ease-out 1.1s both;
+}
+.hero-links{
+  display:flex;flex-wrap:wrap;gap:0.5rem;
+  animation:reveal 0.7s ease-out 1.25s both;
+}
+.hero-links a{
+  font-family:var(--mono);font-size:0.68rem;letter-spacing:0.05em;
+  color:var(--ink);text-decoration:none;padding:0.5rem 1.1rem;
+  border:1px solid var(--ink);transition:background 0.2s ease,color 0.2s ease,border-color 0.2s;
+  position:relative;overflow:hidden;
+}
+.hero-links a::before{
+  content:'';position:absolute;inset:0;background:var(--ink);
+  transform:scaleX(0);transform-origin:left;transition:transform 0.25s ease;
+  z-index:0;
+}
+.hero-links a span{position:relative;z-index:1;}
+.hero-links a:hover::before{transform:scaleX(1);}
+.hero-links a:hover{color:var(--bg);}
+
+/* ── NAV ── */
+nav{
+  position:sticky;top:0;z-index:50;
+  background:rgba(255,255,255,0.96);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--ink-faint);
+}
+nav .container{display:flex;align-items:center;justify-content:space-between;}
+.nav-name{
+  font-family:var(--sans);font-size:0.75rem;font-weight:700;
+  letter-spacing:0.05em;text-transform:uppercase;padding:0.9rem 0;
+  color:var(--ink);
+}
+.nav-links{display:flex;}
+.nav-links a{
+  font-family:var(--mono);font-size:0.63rem;letter-spacing:0.07em;
+  text-transform:uppercase;color:var(--ink-soft);text-decoration:none;
+  padding:0.9rem 1rem;transition:color 0.2s;position:relative;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:0;left:1rem;right:1rem;
+  height:1px;background:var(--ink);transform:scaleX(0);
+  transition:transform 0.2s ease;
+}
+.nav-links a:hover{color:var(--ink);}
+.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1);}
+.nav-links a.active{color:var(--ink);}
+
+/* ── SECTIONS ── */
+.section{padding:5.5rem 0;}
+.section+.section{border-top:1px solid var(--ink-faint);}
+.section-label{
+  font-family:var(--sans);font-size:clamp(1.8rem,4vw,2.6rem);
+  font-weight:700;letter-spacing:-0.03em;color:var(--ink);margin-bottom:2.5rem;
+}
+
+/* ── EDUCATION ── */
+.edu-card{display:grid;grid-template-columns:140px 1fr;gap:2.5rem;align-items:start;}
+.edu-period{
+  font-family:var(--mono);font-size:0.66rem;letter-spacing:0.04em;
+  color:var(--ink-soft);padding-top:0.25rem;line-height:1.7;
+}
+.edu-degree{font-family:var(--sans);font-size:1.05rem;font-weight:600;color:var(--ink);margin-bottom:0.25rem;letter-spacing:-0.01em;}
+.edu-uni{font-family:var(--serif);font-size:0.95rem;font-style:italic;color:var(--ink-mid);margin-bottom:0.5rem;}
+.edu-stats{
+  font-family:var(--mono);font-size:0.66rem;color:var(--ink-soft);
+  letter-spacing:0.04em;margin-bottom:0.8rem;
+  display:inline-flex;gap:0.6rem;align-items:center;
+}
+.edu-stats-sep{color:var(--ink-faint);}
+.edu-desc{font-size:0.9rem;color:var(--ink-mid);line-height:1.7;margin-bottom:0.6rem;}
+.edu-courses{font-size:0.85rem;color:var(--ink-soft);line-height:1.65;}
+.edu-courses strong{color:var(--ink-mid);font-weight:500;}
+
+/* ── SKILLS ── */
+.skill-row{
+  display:flex;align-items:baseline;gap:1.5rem;
+  padding:1rem 0;border-bottom:1px solid var(--ink-faint);
+  transition:padding-left 0.25s ease;
+}
+.skill-row:last-child{border-bottom:none;}
+.skill-row:hover{padding-left:0.5rem;}
+.skill-label{
+  font-family:var(--mono);font-size:0.63rem;letter-spacing:0.09em;
+  text-transform:uppercase;color:var(--ink-soft);min-width:110px;flex-shrink:0;
+}
+.skill-list{font-family:var(--serif);font-size:0.92rem;color:var(--ink-mid);line-height:1.85;}
+.skill-list span::after{content:' · ';color:var(--ink-faint);}
+.skill-list span:last-child::after{content:'';}
+
+/* ── PROJECTS ── */
+.project-card{
+  padding:2.2rem 0;border-bottom:1px solid var(--ink-faint);
+  transition:padding-left 0.3s ease;
+}
+.project-card:first-child{padding-top:0;}
+.project-card:last-child{border-bottom:none;}
+.project-card:hover{padding-left:1rem;}
+.proj-top{
+  display:flex;align-items:baseline;justify-content:space-between;
+  gap:1rem;flex-wrap:wrap;margin-bottom:0.6rem;
+}
+.proj-name{font-family:var(--sans);font-size:1.05rem;font-weight:600;color:var(--ink);letter-spacing:-0.01em;}
+.proj-kind{font-family:var(--mono);font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-soft);white-space:nowrap;}
+.proj-desc{font-size:0.9rem;color:var(--ink-mid);line-height:1.72;margin-bottom:0.8rem;max-width:600px;}
+.proj-tech{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:0.8rem;}
+.chip{
+  font-family:var(--mono);font-size:0.58rem;letter-spacing:0.03em;
+  padding:0.22rem 0.65rem;background:var(--surface);color:var(--ink-mid);
+  border-radius:1px;transition:background 0.18s,color 0.18s;cursor:default;
+}
+.chip:hover{background:var(--ink);color:var(--bg);}
+.read-more{
+  font-family:var(--mono);font-size:0.63rem;letter-spacing:0.05em;
+  color:var(--ink);background:none;border:none;cursor:pointer;
+  padding:0;position:relative;transition:opacity 0.2s;
+}
+.read-more::after{
+  content:'';position:absolute;bottom:-2px;left:0;width:100%;height:1px;
+  background:var(--ink);transform:scaleX(0);transform-origin:right;
+  transition:transform 0.25s ease;
+}
+.read-more:hover::after{transform:scaleX(1);transform-origin:left;}
+
+/* ── CONTACT ── */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+.contact-item{
+  padding:1.3rem 1.6rem;border:0.5px solid var(--ink-faint);
+  margin-top:-0.5px;margin-left:-0.5px;
+  transition:background 0.2s;
+}
+.contact-item:hover{background:var(--surface);}
+.contact-label{
+  font-family:var(--mono);font-size:0.58rem;letter-spacing:0.12em;
+  text-transform:uppercase;color:var(--ink-soft);margin-bottom:0.45rem;
+}
+.contact-value{font-size:0.9rem;color:var(--ink-mid);}
+.contact-value a{
+  color:var(--ink);text-decoration:none;
+  border-bottom:1px solid transparent;transition:border-color 0.2s;
+}
+.contact-value a:hover{border-color:var(--ink);}
+
+/* ── FOOTER ── */
+footer{
+  padding:2rem 0 3.5rem;display:flex;justify-content:space-between;
+  align-items:baseline;font-family:var(--mono);font-size:0.58rem;
+  letter-spacing:0.05em;color:var(--ink-soft);
+  border-top:1px solid var(--ink-faint);margin-top:0;
+}
+
+/* ── INLINE EXPAND ── */
+.proj-expand{
+  overflow:hidden;
+  max-height:0;
+  transition:max-height 0.45s cubic-bezier(.22,.68,0,1.2), opacity 0.35s ease;
+  opacity:0;
+}
+.proj-expand.open{
+  max-height:600px;
+  opacity:1;
+}
+.expand-inner{
+  padding:1.2rem 0 0.4rem;
+  border-top:1px solid var(--ink-faint);
+  margin-top:0.8rem;
+}
+.expand-kicker{
+  font-family:var(--mono);font-size:0.58rem;letter-spacing:0.13em;
+  text-transform:uppercase;color:var(--ink-soft);margin-bottom:0.5rem;
+}
+.expand-body{font-size:0.9rem;color:var(--ink-mid);line-height:1.78;}
+.expand-chips{margin-top:1rem;display:flex;flex-wrap:wrap;gap:0.4rem;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:680px){
+  .container{padding:0 1.4rem;}
+  .hero{min-height:75vh;padding-bottom:3.5rem;}
+  .hero::after{left:1.4rem;right:1.4rem;}
+  .edu-card{grid-template-columns:1fr;gap:0.5rem;}
+  .skill-row{flex-direction:column;gap:0.3rem;}
+  .contact-grid{grid-template-columns:1fr;}
+  .proj-top{flex-direction:column;gap:0.2rem;}
+  .nav-name{display:none;}
+  footer{flex-direction:column;gap:0.4rem;}
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+<section class="hero">
+  <p class="hero-overline">Mahindra University · B.Tech ECE</p>
+
+  <h1 class="hero-name" id="hero-name" aria-label="Sasikar Ventrapragada"></h1>
+
+  <p class="hero-role">Undergraduate engineer at the intersection of hardware and software — with interests in embedded systems, signal processing, and full-stack development.</p>
+  <div class="hero-links">
+    <a href="mailto:saisasikar11@gmail.com"><span>Email</span></a>
+    <a href="https://www.linkedin.com/in/sasikar-ventrapragada-527bb5230/" target="_blank" rel="noopener"><span>LinkedIn</span></a>
+    <a href="https://github.com/thetruth11464" target="_blank" rel="noopener"><span>GitHub</span></a>
+    <a href="./Sasikar_Resume.pdf" target="_blank"><span>CV</span></a>
+  </div>
+</section>
+</div>
+
+<nav>
+  <div class="container">
+    <span class="nav-name">S.V.</span>
+    <div class="nav-links">
+      <a href="#education">Education</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+
+<section class="section" id="education">
+  <h2 class="section-label">Education</h2>
+  <div class="edu-card">
+    <div class="edu-period">Aug 2024 —<br/>Present</div>
+    <div class="edu-content">
+      <p class="edu-degree">B.Tech — Electronics &amp; Computer Engineering</p>
+      <p class="edu-uni">Mahindra University, Hyderabad</p>
+      <p class="edu-stats">
+        CGPA 8.69 / 10
+        <span class="edu-stats-sep">·</span>
+        Rank 3 of 85
+      </p>
+      <p class="edu-desc">Pursuing a dual-discipline degree bridging hardware and software, with coursework spanning digital systems design, computer science fundamentals, and applied mathematics.</p>
+      <p class="edu-courses"><strong>Courses:</strong> Digital Electronics · Digital System Design · Design &amp; Analysis of Algorithms · Operating Systems · Probability &amp; Statistics</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="skills">
+  <h2 class="section-label">Technical Skills</h2>
+  <div class="skill-row">
+    <span class="skill-label">Languages</span>
+    <div class="skill-list">
+      <span>Java</span><span>Python</span><span>C</span><span>C++</span><span>SQL (Postgres)</span><span>MicroPython</span>
+    </div>
+  </div>
+  <div class="skill-row">
+    <span class="skill-label">Tools</span>
+    <div class="skill-list">
+      <span>Git</span><span>KiCad</span><span>Flask</span><span>Ngspice</span>
+    </div>
+  </div>
+  <div class="skill-row">
+    <span class="skill-label">Libraries</span>
+    <div class="skill-list">
+      <span>pandas</span><span>NumPy</span><span>Matplotlib</span><span>SciPy</span><span>scikit-learn</span>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="projects">
+  <h2 class="section-label">Projects</h2>
+
+  <div class="project-card">
+    <div class="proj-top">
+      <p class="proj-name">Bank Management System</p>
+      <p class="proj-kind">Personal Project</p>
+    </div>
+    <p class="proj-desc">A console-based application in C for managing user accounts and financial transactions. Supports account creation, deposit and withdrawal operations, and full transaction history — implemented using file handling and fundamental data structures.</p>
+    <div class="proj-tech">
+      <span class="chip">C</span><span class="chip">File I/O</span><span class="chip">Data Structures</span>
+    </div>
+    <button class="read-more" data-target="expand-bank">Read more →</button>
+    <div class="proj-expand" id="expand-bank">
+      <div class="expand-inner">
+        <p class="expand-kicker">Personal Project · C Programming</p>
+        <p class="expand-body">Built entirely in C without external libraries, this project simulates a real banking record system using persistent file I/O. It handles user account creation, deposit and withdrawal logic, balance enquiry, and a full transaction log — demonstrating strong proficiency in structured data management, file handling, and procedural programming. A solid demonstration of systems-level thinking built from the ground up with no frameworks as scaffolding.</p>
+        <div class="expand-chips">
+          <span class="chip">C</span><span class="chip">File Handling</span><span class="chip">Structs</span><span class="chip">Data Structures</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <div class="proj-top">
+      <p class="proj-name">Blood Sugar &amp; Diabetes Detection via PPG Signals</p>
+      <p class="proj-kind">Personal Project</p>
+    </div>
+    <p class="proj-desc">A full-stack web application that analyzes photoplethysmography (PPG) signals to estimate blood sugar levels. Implements signal preprocessing, feature extraction, and an ML classifier — with a real-time interactive frontend for predictions.</p>
+    <div class="proj-tech">
+      <span class="chip">Python</span><span class="chip">Flask</span><span class="chip">NumPy</span><span class="chip">SciPy</span><span class="chip">scikit-learn</span><span class="chip">pandas</span>
+    </div>
+    <button class="read-more" data-target="expand-ppg">Read more →</button>
+    <div class="proj-expand" id="expand-ppg">
+      <div class="expand-inner">
+        <p class="expand-kicker">Personal Project · ML + Signal Processing</p>
+        <p class="expand-body">PPG (photoplethysmography) signals — captured by simple light sensors — carry physiological information about blood flow and composition. This project builds an end-to-end pipeline: raw PPG data is preprocessed (noise filtering, normalisation), key time-domain and frequency-domain features are extracted, and a machine learning model classifies users as diabetic or non-diabetic. A Flask backend serves the model via REST API, while a frontend allows real-time input and instant prediction display. Demonstrates interdisciplinary skills across biomedical signal processing, ML, and full-stack development.</p>
+        <div class="expand-chips">
+          <span class="chip">Python</span><span class="chip">Flask</span><span class="chip">scikit-learn</span><span class="chip">SciPy</span><span class="chip">NumPy</span><span class="chip">pandas</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <div class="proj-top">
+      <p class="proj-name">DC Traction Motor Simulation</p>
+      <p class="proj-kind">Academic / Personal</p>
+    </div>
+    <p class="proj-desc">Designed and simulated a DC traction motor circuit using KiCad for schematic capture and PCB layout. Conducted transient and steady-state analysis in Ngspice to evaluate torque, current, and speed characteristics under varying load conditions.</p>
+    <div class="proj-tech">
+      <span class="chip">KiCad</span><span class="chip">Ngspice</span><span class="chip">PCB Design</span><span class="chip">Circuit Simulation</span>
+    </div>
+    <button class="read-more" data-target="expand-motor">Read more →</button>
+    <div class="proj-expand" id="expand-motor">
+      <div class="expand-inner">
+        <p class="expand-kicker">Academic / Personal · Hardware Design</p>
+        <p class="expand-body">Traction motors are critical in electric vehicles and rail systems. This project covers the full design cycle: schematic capture in KiCad, PCB layout, and SPICE-based simulation in Ngspice. Transient analysis reveals how the motor responds to sudden load changes, while steady-state analysis characterises torque–speed and current–speed curves. Component values were iteratively refined to meet performance targets — demonstrating circuit theory, PCB design, and simulation-driven engineering judgment.</p>
+        <div class="expand-chips">
+          <span class="chip">KiCad</span><span class="chip">Ngspice</span><span class="chip">SPICE</span><span class="chip">PCB Layout</span><span class="chip">Circuit Analysis</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <div class="proj-top">
+      <p class="proj-name">Pi Pico DAQ — Multi-Channel Data Acquisition System</p>
+      <p class="proj-kind">Personal Project</p>
+    </div>
+    <p class="proj-desc">A complete end-to-end embedded systems project built on a Raspberry Pi Pico. Reads temperature, potentiometer position, and USB voltage simultaneously at 2 Hz, streams data to a PC over USB serial, and serves a live dashboard accessible by any browser on the local WiFi network — updating every 0.5 seconds with no page refresh.</p>
+    <div class="proj-tech">
+      <span class="chip">MicroPython</span><span class="chip">Raspberry Pi Pico</span><span class="chip">Flask</span><span class="chip">ADC</span><span class="chip">Serial (USB)</span><span class="chip">SSE</span><span class="chip">Python</span><span class="chip">Matplotlib</span>
+    </div>
+    <button class="read-more" data-target="expand-daq">Read more →</button>
+    <div class="proj-expand" id="expand-daq">
+      <div class="expand-inner">
+        <p class="expand-kicker">Personal Project · Embedded Systems</p>
+        <p class="expand-body">A complete embedded systems pipeline built from physical hardware to a live web dashboard. The Raspberry Pi Pico reads three simultaneous channels — internal chip temperature, potentiometer position (0–100%), and USB supply voltage (~3.3V) — at a fixed 2 Hz sampling rate using its onboard ADC. Data is streamed over USB serial to a PC running a Flask server, which pushes live updates to any browser on the local network using Server-Sent Events (SSE), with no page refresh required.<br/><br/>The project spans six purpose-built files: firmware on the Pico, a web server, a CSV data logger, a cross-correlation analyser, a live Matplotlib graph, and a one-click batch launcher. Plugging in the Pico and double-clicking <em>launch_daq.bat</em> brings the full system online in seconds — a real-time dashboard visible to every device on the WiFi.</p>
+        <div class="expand-chips">
+          <span class="chip">MicroPython</span><span class="chip">Raspberry Pi Pico</span><span class="chip">ADC</span><span class="chip">Flask</span><span class="chip">SSE</span><span class="chip">Serial (USB)</span><span class="chip">Python</span><span class="chip">Matplotlib</span><span class="chip">CSV Logging</span><span class="chip">Cross-Correlation</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <h2 class="section-label">Contact</h2>
+  <div class="contact-grid">
+    <div class="contact-item">
+      <p class="contact-label">Email</p>
+      <p class="contact-value"><a href="mailto:saisasikar11@gmail.com">saisasikar11@gmail.com</a></p>
+    </div>
+    <div class="contact-item">
+      <p class="contact-label">LinkedIn</p>
+      <p class="contact-value"><a href="https://www.linkedin.com/in/sasikar-ventrapragada-527bb5230/" target="_blank" rel="noopener">sasikar-ventrapragada</a></p>
+    </div>
+    <div class="contact-item">
+      <p class="contact-label">GitHub</p>
+      <p class="contact-value"><a href="https://github.com/thetruth11464" target="_blank" rel="noopener">thetruth11464</a></p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>Sasikar Ventrapragada · Mahindra University</span>
+  <span>May 2026</span>
+</footer>
+</div>
+
+<!-- MODALS REMOVED — now inline expand -->
+
+<script>
+// ── LETTER DROP ANIMATION ──
+(function(){
+  var lines = ['Sasikar', 'Ventrapragada'];
+  var container = document.getElementById('hero-name');
+  var baseDelay = 0.3;
+  var letterDelay = 0.045;
+  var lineGap = 0.1;
+  var idx = 0;
+  lines.forEach(function(word, wi){
+    var wordEl = document.createElement('span');
+    wordEl.className = 'word';
+    word.split('').forEach(function(ch){
+      var span = document.createElement('span');
+      span.className = 'letter';
+      span.textContent = ch;
+      span.style.animationDelay = (baseDelay + wi * lineGap + idx * letterDelay) + 's';
+      wordEl.appendChild(span);
+      idx++;
+    });
+    if(wi === lines.length - 1){
+      var cursor = document.createElement('span');
+      cursor.className = 'name-cursor';
+      cursor.style.animationDelay = (baseDelay + wi * lineGap + idx * letterDelay + 0.1) + 's';
+      wordEl.appendChild(cursor);
+    }
+    container.appendChild(wordEl);
+  });
+})();
+
+// ── INLINE EXPAND ──
+document.querySelectorAll('.read-more').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var targetId = btn.getAttribute('data-target');
+    var expand = document.getElementById(targetId);
+    var isOpen = expand.classList.contains('open');
+    // close all others
+    document.querySelectorAll('.proj-expand.open').forEach(function(el){
+      el.classList.remove('open');
+      el.closest('.project-card').querySelector('.read-more').textContent = 'Read more →';
+    });
+    if(!isOpen){
+      expand.classList.add('open');
+      btn.textContent = 'Read less ↑';
+    }
+  });
+});
+
+// ── SCROLL REVEAL ──
+var revealObs = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting){
+      e.target.style.animation = 'reveal 0.6s cubic-bezier(.22,.68,0,1.2) both';
+      revealObs.unobserve(e.target);
+    }
+  });
+}, {threshold: 0.07});
+document.querySelectorAll('.section').forEach(function(s){
+  s.style.opacity = '0';
+  revealObs.observe(s);
+});
+
+// ── ACTIVE NAV ──
+var navSections = document.querySelectorAll('section[id]');
+var navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', function(){
+  var current = '';
+  navSections.forEach(function(sec){
+    if(window.scrollY >= sec.offsetTop - 140) current = sec.id;
+  });
+  navLinks.forEach(function(a){
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+}, {passive: true});
+</script>
+</body>
+</html>
